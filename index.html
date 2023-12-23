@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toy Shop</title>
+</head>
+<body>
+    <button id="startButton" data-delay="5000">Start Toy Shop (5 seconds)</button>
+    <button id="startButton10" data-delay="10000">Start Toy Shop (10 seconds)</button>
+    <button id="startButton15" data-delay="15000">Start Toy Shop (15 seconds)</button>
+
+    <script>
+        async function mySetTimeout(delay) {
+            return new Promise((resolve) => setTimeout(resolve, delay));
+        }
+
+        async function toyShop(customDelay) {
+            try {
+                console.log(`Preparing the toy with a delay of ${customDelay} milliseconds...`);
+                await mySetTimeout(customDelay);
+
+                console.log('Delivering toys...');
+                await deliverToys(); // 2 seconds
+
+                console.log('Selling the toy...');
+                await mySetTimeout(1000); // 1 second
+
+                console.log('Toy sold successfully!');
+            } catch (error) {
+                console.error('Error:', error.message);
+            }
+        }
+
+        async function deliverToys() {
+            return new Promise((resolve) => setTimeout(resolve, 2000)); // 2 seconds
+        }
+
+        function startToyShopWithDelay(delay) {
+            console.log('--- New Toy Shop Session ---');
+            toyShop(delay);
+        }
+
+        // Event listeners for buttons
+        document.getElementById('startButton').addEventListener('click', function () {
+            startToyShopWithDelay(this.dataset.delay);
+        });
+
+        document.getElementById('startButton10').addEventListener('click', function () {
+            startToyShopWithDelay(this.dataset.delay);
+        });
+
+        document.getElementById('startButton15').addEventListener('click', function () {
+            startToyShopWithDelay(this.dataset.delay);
+        });
+    </script>
+</body>
+</html>
